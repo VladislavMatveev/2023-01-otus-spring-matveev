@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CsvReaderService implements ReaderService{
+public class CsvReaderService implements ReaderService {
 
     private String pathToFile;
 
@@ -43,11 +43,11 @@ public class CsvReaderService implements ReaderService{
                 continue;
             }
 
-            for (String answerString: questionData[1].split(",")){
+            for (String answerString : questionData[1].split(",")) {
                 Answer answer = new AnswerImpl(answerString);
                 answers.add(answer);
             }
-            for (String answerString: questionData[2].split(",")){
+            for (String answerString : questionData[2].split(",")) {
                 Answer answer = new AnswerImpl(answerString);
                 correctAnswers.add(answer);
             }

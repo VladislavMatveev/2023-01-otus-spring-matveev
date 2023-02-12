@@ -16,6 +16,7 @@ public class Main {
         List<Question> questions = readerService.readQuestions();
 
         PrintService printService = context.getBean(PrintService.class);
-        printService.printQuestions(questions);
+        String result = printService.printQuestions(questions);
+        System.out.println(result);
     }
 }

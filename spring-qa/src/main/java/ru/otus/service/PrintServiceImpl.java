@@ -5,23 +5,25 @@ import ru.otus.entity.Question;
 
 import java.util.List;
 
-public class PrintServiceImpl implements PrintService{
+public class PrintServiceImpl implements PrintService {
 
     @Override
-    public void printQuestions(List<Question> questions) {
-        for (Question question: questions) {
-            print("Question:");
-            print("\t" + question.getText());
+    public String printQuestions(List<Question> questions) {
+        StringBuilder builder = new StringBuilder();
 
-            print("Answers:");
-            for (Answer answer: question.getAnswers()) {
-                print("\t" + answer.getText());
+        for (Question question : questions) {
+            builder.append("Question:\n")
+                .append("\t" + question.getText())
+                .append("\n")
+                .append("Answers:\n");
+
+            for (Answer answer : question.getAnswers()) {
+                builder.append("\t")
+                        .append(answer.getText())
+                        .append("\n");
             }
-            print("");
         }
-    }
 
-    private void print(String message) {
-        System.out.println(message);
+        return builder.toString();
     }
 }
