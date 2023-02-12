@@ -1,10 +1,12 @@
 package ru.otus.service;
 
+import lombok.NoArgsConstructor;
 import ru.otus.entity.Answer;
 import ru.otus.entity.Question;
 
 import java.util.List;
 
+@NoArgsConstructor
 public class PrintServiceImpl implements PrintService {
 
     @Override

@@ -1,5 +1,6 @@
 package ru.otus.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import ru.otus.entity.Answer;
 import ru.otus.entity.AnswerImpl;
@@ -12,13 +13,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 public class CsvReaderService implements ReaderService {
 
     private String pathToFile;
-
-    public CsvReaderService(String pathToFile) {
-        this.pathToFile = pathToFile;
-    }
 
     private List<Question> readQuestionsFromFile() throws IOException {
         ClassPathResource resource = new ClassPathResource(pathToFile);

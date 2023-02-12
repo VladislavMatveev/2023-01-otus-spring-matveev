@@ -1,13 +1,13 @@
 package ru.otus.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@EqualsAndHashCode
+@AllArgsConstructor
 public class AnswerImpl implements Answer {
+
+    @Getter
     private final String text;
-
-    public AnswerImpl(String text) {
-        this.text = text;
-    }
-
-    public String getText() {
-        return text;
-    }
 }
