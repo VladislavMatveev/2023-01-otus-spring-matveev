@@ -3,8 +3,17 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="readerService" class="ru.otus.service.CsvReaderService">
+    <bean id="readerService" class="ru.otus.service.ReaderServiceCsv">
         <constructor-arg index="0" value="/questions.csv"/>
     </bean>
     <bean id="printService" class="ru.otus.service.PrintServiceImpl"/>
+
+    <bean id="ioService" class="ru.otus.service.IOServiceImpl">
+        <constructor-arg index="0" value="#{T(System).out }"/>
+    </bean>
+    <bean id="applicationService" class="ru.otus.service.ApplicationServiceImpl">
+        <constructor-arg index="0" ref="readerService"/>
+        <constructor-arg index="1" ref="printService"/>
+        <constructor-arg index="2" ref="ioService"/>
+    </bean>
 </beans>

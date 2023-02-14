@@ -1,5 +1,13 @@
 package ru.otus.entity;
 
-public interface Answer {
-    String getText();
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@EqualsAndHashCode
+@AllArgsConstructor
+public class Answer {
+
+    @Getter
+    private final String text;
 }
