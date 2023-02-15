@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.entity.Answer;
 import ru.otus.entity.Question;
+import ru.otus.service.interfaces.PrintService;
 
 import java.util.ArrayList;
 import java.util.List;

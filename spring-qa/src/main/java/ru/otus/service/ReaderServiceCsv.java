@@ -5,6 +5,7 @@ import org.springframework.core.io.ClassPathResource;
 import ru.otus.entity.Answer;
 import ru.otus.entity.Question;
 import ru.otus.exceptions.AppRuntimeException;
+import ru.otus.service.interfaces.ReaderService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,9 +37,7 @@ public class ReaderServiceCsv implements ReaderService {
                 // 2 - correct answer/answers
 
                 if (questionData.length < 3) {
-                    System.out.print("Incorrect data in line: ");
-                    System.out.println(line);
-                    continue;
+                    throw new AppRuntimeException("Incorrect data in line: " + line);
                 }
 
                 for (String answerString : questionData[1].split(",")) {

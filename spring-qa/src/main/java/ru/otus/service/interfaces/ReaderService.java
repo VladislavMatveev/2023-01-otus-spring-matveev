@@ -1,4 +1,4 @@
-package ru.otus.service;
+package ru.otus.service.interfaces;
 
 import ru.otus.entity.Question;
 
