@@ -1,31 +1,29 @@
 package ru.otus.service;
 
 import lombok.NoArgsConstructor;
-import ru.otus.entity.Answer;
+import org.springframework.stereotype.Service;
 import ru.otus.entity.Question;
 import ru.otus.service.interfaces.PrintService;
 
-import java.util.List;
-
 @NoArgsConstructor
+@Service
 public class PrintServiceImpl implements PrintService {
 
     @Override
-    public String printQuestions(List<Question> questions) {
+    public String printQuestion(Question question) {
+
         StringBuilder builder = new StringBuilder();
 
-        for (Question question : questions) {
-            builder.append("Question:\n")
+        builder.append("Question:\n")
                 .append("\t" + question.getText())
                 .append("\n")
                 .append("Answers:\n");
 
-            for (Answer answer : question.getAnswers()) {
-                builder.append("\t")
+        question.getAnswers()
+                .forEach(answer -> builder.append("\t")
                         .append(answer.getText())
-                        .append("\n");
-            }
-        }
+                        .append("\n"));
+        builder.append("\n");
 
         return builder.toString();
     }

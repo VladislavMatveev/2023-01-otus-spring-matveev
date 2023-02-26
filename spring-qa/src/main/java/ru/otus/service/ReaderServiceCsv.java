@@ -2,9 +2,12 @@ package ru.otus.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
+import ru.otus.config.ReaderServiceSettingsProvider;
 import ru.otus.entity.Answer;
 import ru.otus.entity.Question;
-import ru.otus.exceptions.AppRuntimeException;
+import ru.otus.exceptions.IOFromFileException;
+import ru.otus.exceptions.IncorrectDataInLineException;
 import ru.otus.service.interfaces.ReaderService;
 
 import java.io.BufferedReader;
@@ -13,14 +16,15 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 @AllArgsConstructor
 public class ReaderServiceCsv implements ReaderService {
 
-    private String pathToFile;
+    private final ReaderServiceSettingsProvider readerServiceSettingProvider;
 
     private List<Question> readQuestionsFromFile() throws IOException {
 
-        ClassPathResource resource = new ClassPathResource(pathToFile);
+        ClassPathResource resource = new ClassPathResource(readerServiceSettingProvider.getPathToFile());
         String line;
         List<Question> questionList = new ArrayList<>();
 
@@ -37,7 +41,7 @@ public class ReaderServiceCsv implements ReaderService {
                 // 2 - correct answer/answers
 
                 if (questionData.length < 3) {
-                    throw new AppRuntimeException("Incorrect data in line: " + line);
+                    throw new IncorrectDataInLineException("Incorrect data in line: " + line);
                 }
 
                 for (String answerString : questionData[1].split(",")) {
@@ -67,7 +71,7 @@ public class ReaderServiceCsv implements ReaderService {
         try {
             return readQuestionsFromFile();
         } catch (IOException e) {
-            throw new AppRuntimeException(e);
+            throw new IOFromFileException(e);
         }
     }
 }

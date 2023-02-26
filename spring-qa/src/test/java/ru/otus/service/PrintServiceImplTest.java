@@ -19,6 +19,7 @@ class PrintServiceImplTest {
             \tRed
             \tGreen
             \tWhite
+            
             """;
 
     @Test
@@ -34,12 +35,10 @@ class PrintServiceImplTest {
         answers.add(answerWhite);
 
         Question question = new Question("What color is the sun?", answers, new ArrayList<>());
-        List<Question> questions = new ArrayList<>();
-        questions.add(question);
 
         PrintService printService = new PrintServiceImpl();
 
-        Assertions.assertEquals(EXPECTED_TEXT, printService.printQuestions(questions));
+        Assertions.assertEquals(EXPECTED_TEXT, printService.printQuestion(question));
 
     }
 }
