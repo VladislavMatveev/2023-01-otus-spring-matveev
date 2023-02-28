@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.config.ApplicationServiceSettingsProvider;
 import ru.otus.entity.Answer;
 import ru.otus.entity.Question;
+import ru.otus.service.interfaces.ApplicationService;
 import ru.otus.service.interfaces.IOService;
 import ru.otus.service.interfaces.PrintService;
 import ru.otus.service.interfaces.ReaderService;
@@ -13,13 +14,14 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ApplicationService {
+public class ApplicationServiceImpl implements ApplicationService {
 
     private final ReaderService readerService;
     private final PrintService printService;
     private final IOService ioService;
     private final ApplicationServiceSettingsProvider applicationServiceProvider;
 
+    @Override
     public void run() {
         List<Question> questions = readerService.readQuestions();
 
@@ -32,7 +34,7 @@ public class ApplicationService {
             ioService.println(printService.printQuestion(question));
             ioService.println("Your answer:");
 
-            Answer answer = ioService.readAnswer();
+            Answer answer = new Answer(ioService.readLine());
             if (question.getCorrectAnswers().contains(answer)) {
                 correctAnswersCount++;
             }
