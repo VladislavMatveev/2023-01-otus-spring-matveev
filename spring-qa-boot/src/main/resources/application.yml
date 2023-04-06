@@ -1,0 +1,8 @@
+questions:
+  path: '/questions.csv'
+  correct-answers: 3
+
+io:
+  out: #T{System.out}
+  in: #T{System}.in
+
