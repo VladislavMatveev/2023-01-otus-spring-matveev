@@ -1,8 +1,13 @@
 questions:
-  path: '/questions.csv'
+  paths:
+    ru_RU: '/questions_ru.csv'
+    en: '/questions_en.csv'
   correct-answers: 3
 
-io:
-  out: #T{System.out}
-  in: #T{System}.in
+application:
+  locale: ru_RU
 
+spring:
+  messages:
+    basename: "i18n/appmessages"
+    encoding: "UTF-8"

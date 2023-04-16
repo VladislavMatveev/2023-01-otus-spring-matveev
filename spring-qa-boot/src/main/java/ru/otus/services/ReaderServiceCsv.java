@@ -3,6 +3,7 @@ package ru.otus.services;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import ru.otus.config.AppProperties;
 import ru.otus.config.AppQuestionsProperties;
 import ru.otus.entity.Answer;
 import ru.otus.entity.Question;
@@ -20,16 +21,16 @@ import java.util.List;
 @AllArgsConstructor
 public class ReaderServiceCsv implements ReaderService {
 
-    private final AppQuestionsProperties applicationProperties;
+    private final AppQuestionsProperties questionsProperties;
+    private final AppProperties appProperties;
 
     private List<Question> readQuestionsFromFile() throws IOException {
 
-        ClassPathResource resource = new ClassPathResource(applicationProperties.path());
+        ClassPathResource resource = new ClassPathResource(questionsProperties.paths().get(appProperties.locale().toString()));
         String line;
         List<Question> questionList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
-
 
             while ((line = reader.readLine()) != null) {
                 List<Answer> answers = new ArrayList<>();
@@ -57,12 +58,9 @@ public class ReaderServiceCsv implements ReaderService {
                         answers,
                         correctAnswers
                 );
-
                 questionList.add(question);
             }
-
         }
-
         return questionList;
     }
 

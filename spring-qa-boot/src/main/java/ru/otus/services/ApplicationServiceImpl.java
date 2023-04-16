@@ -27,24 +27,24 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         int correctAnswersCount = 0;
 
-        ioService.println("Enter your name:");
+        ioService.printLocalized("main.ask-name");
         String studentName = ioService.readLine();
 
         for (Question question : questions) {
             ioService.println(printService.printQuestion(question));
-            ioService.println("Your answer:");
+            ioService.printLocalized("main.answer");
 
             Answer answer = new Answer(ioService.readLine());
             if (question.getCorrectAnswers().contains(answer)) {
                 correctAnswersCount++;
             }
         }
-        ioService.println("Correct: " + correctAnswersCount);
+        ioService.printLocalized("main.correct", new String[]{String.valueOf(correctAnswersCount)});
 
-        ioService.println(studentName +
-                (correctAnswersCount >= applicationProperties.correctAnswers() ? " passed " : "  failed ")
-                + "the test");
-
+        if (correctAnswersCount >= applicationProperties.correctAnswers()) {
+            ioService.printLocalized("main.test-passed", new String[]{studentName});
+        } else {
+           ioService.printLocalized("main.test-failed", new String[]{studentName});
+        }
     }
-
 }
