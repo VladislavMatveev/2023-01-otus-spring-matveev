@@ -3,13 +3,13 @@ package ru.otus.services;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import ru.otus.config.AppProperties;
-import ru.otus.config.AppQuestionsProperties;
+import ru.otus.config.ApplicationSettingsProvider;
+import ru.otus.config.QuestionsSettingsProvider;
 import ru.otus.entity.Answer;
 import ru.otus.entity.Question;
 import ru.otus.exceptions.IOFromFileException;
 import ru.otus.exceptions.IncorrectDataInLineException;
-import ru.otus.services.interfaces.ReaderService;
+import ru.otus.services.interfaces.QuestionRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,14 +19,14 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ReaderServiceCsv implements ReaderService {
+public class ReaderServiceCsv implements QuestionRepository {
 
-    private final AppQuestionsProperties questionsProperties;
-    private final AppProperties appProperties;
+    private final QuestionsSettingsProvider questionsProperties;
+    private final ApplicationSettingsProvider appProperties;
 
     private List<Question> readQuestionsFromFile() throws IOException {
 
-        ClassPathResource resource = new ClassPathResource(questionsProperties.paths().get(appProperties.locale().toString()));
+        ClassPathResource resource = new ClassPathResource(questionsProperties.getPaths().get(appProperties.getLocale().toString()));
         String line;
         List<Question> questionList = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class ReaderServiceCsv implements ReaderService {
     }
 
     @Override
-    public List<Question> readQuestions() {
+    public List<Question> getAll() {
         try {
             return readQuestionsFromFile();
         } catch (IOException e) {

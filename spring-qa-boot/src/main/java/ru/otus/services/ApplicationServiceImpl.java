@@ -2,13 +2,13 @@ package ru.otus.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.otus.config.AppQuestionsProperties;
+import ru.otus.config.QuestionsSettingsProvider;
 import ru.otus.entity.Answer;
 import ru.otus.entity.Question;
 import ru.otus.services.interfaces.ApplicationService;
 import ru.otus.services.interfaces.IOService;
-import ru.otus.services.interfaces.PrintService;
-import ru.otus.services.interfaces.ReaderService;
+import ru.otus.services.interfaces.PrintQuestionService;
+import ru.otus.services.interfaces.QuestionRepository;
 
 import java.util.List;
 
@@ -16,14 +16,14 @@ import java.util.List;
 @AllArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
 
-    private final ReaderService readerService;
-    private final PrintService printService;
+    private final QuestionRepository readerService;
+    private final PrintQuestionService printService;
     private final IOService ioService;
-    private final AppQuestionsProperties applicationProperties;
+    private final QuestionsSettingsProvider questionsSettings;
 
     @Override
     public void run() {
-        List<Question> questions = readerService.readQuestions();
+        List<Question> questions = readerService.getAll();
 
         int correctAnswersCount = 0;
 
@@ -31,7 +31,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         String studentName = ioService.readLine();
 
         for (Question question : questions) {
-            ioService.println(printService.printQuestion(question));
+            ioService.println(printService.print(question));
             ioService.printLocalized("main.answer");
 
             Answer answer = new Answer(ioService.readLine());
@@ -41,7 +41,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         ioService.printLocalized("main.correct", new String[]{String.valueOf(correctAnswersCount)});
 
-        if (correctAnswersCount >= applicationProperties.correctAnswers()) {
+        if (correctAnswersCount >= questionsSettings.getNumberOfCorrectAnswers()) {
             ioService.printLocalized("main.test-passed", new String[]{studentName});
         } else {
            ioService.printLocalized("main.test-failed", new String[]{studentName});

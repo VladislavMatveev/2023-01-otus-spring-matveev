@@ -4,6 +4,6 @@ import ru.otus.entity.Question;
 
 import java.util.List;
 
-public interface ReaderService {
-    List<Question> readQuestions();
+public interface QuestionRepository {
+    List<Question> getAll();
 }

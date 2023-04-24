@@ -1,11 +1,9 @@
-questions:
+application:
+  locale: ru_RU
   paths:
     ru_RU: '/questions_ru.csv'
     en: '/questions_en.csv'
   correct-answers: 3
-
-application:
-  locale: ru_RU
 
 spring:
   messages:

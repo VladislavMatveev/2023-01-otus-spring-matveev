@@ -4,16 +4,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.entity.Question;
 import ru.otus.services.interfaces.LocalizationService;
-import ru.otus.services.interfaces.PrintService;
+import ru.otus.services.interfaces.PrintQuestionService;
 
 @AllArgsConstructor
 @Service
-public class PrintServiceImpl implements PrintService {
+public class PrintQuestionServiceImpl implements PrintQuestionService {
 
     private final LocalizationService localizationService;
 
     @Override
-    public String printQuestion(Question question) {
+    public String print(Question question) {
 
         StringBuilder builder = new StringBuilder();
 
