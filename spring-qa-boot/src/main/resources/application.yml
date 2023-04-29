@@ -1,0 +1,11 @@
+application:
+  locale: ru_RU
+  paths:
+    ru_RU: '/questions_ru.csv'
+    en: '/questions_en.csv'
+  correct-answers: 3
+
+spring:
+  messages:
+    basename: "i18n/appmessages"
+    encoding: "UTF-8"
