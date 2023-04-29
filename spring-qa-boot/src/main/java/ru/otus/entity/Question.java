@@ -1,12 +1,10 @@
 package ru.otus.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @AllArgsConstructor
-@EqualsAndHashCode
 public class Question {
 
     private final String text;
